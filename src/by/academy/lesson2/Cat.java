@@ -5,6 +5,7 @@ public class Cat {
     int age;
     String nickname;
     double money;
+    char initials;
     public Cat(){};
     public Cat (String nicname){
         this.nickname = nicname;
@@ -14,7 +15,7 @@ public class Cat {
         age = age + addAge;
     }
     public void sleep() {
-        System.out.println("Кот спипит");
+        System.out.println("Кот спит");
     }
     public void eat() {
         System.out.println("Кот ест");
@@ -28,12 +29,12 @@ public class Cat {
 
     }
     public void getMoney(){
-        System.out.println("Введите количество денег");
+        System.out.println("Введите количество денег для кота");
         Scanner scan = new Scanner(System.in);
         money = scan.nextInt();
     }
-    public double showMoney(){
-        System.out.println("Кот проел " + money + "рублей");
+    public double setMoney(){
+        System.out.println("У кота " + money + "рублей");
         return money;
     }
 
