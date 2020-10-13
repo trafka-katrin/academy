@@ -11,8 +11,10 @@ public class Application {
             cat.grow(1);
         }
         System.out.println("Коту " + cat.nickname + " " + cat.age + " года");
-
-
+        cat1.getInitials(cat1.nickname);
+        cat1.setInitials();
+        cat1.isHomeAnimal();
+        cat1.setIsHomeAnimal();
 
 
 
