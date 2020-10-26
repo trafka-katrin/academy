@@ -59,7 +59,7 @@ public class Cat {
     }
 
     public boolean setIsHomeAnimal(){
-        if (isHomeAnimal = true) {
+        if (isHomeAnimal == true) {
             System.out.println("Кот домашнее животное");
         } else {
             System.out.println("Кот не домашнне животное");}

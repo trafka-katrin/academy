@@ -21,7 +21,7 @@ public class Task_2 {
         } else if (variaBleString == true) {
             variaBle = "String";
             System.out.println("Переменная типа " + variaBle);
-        } else if
+        } else
             {
             System.out.println("Kva");
 
