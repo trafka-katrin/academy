@@ -1,4 +1,4 @@
-package by.academy.lesson2;
+package by.academy.lesson1;
 import java.util.Scanner;
 
 public class Cat {

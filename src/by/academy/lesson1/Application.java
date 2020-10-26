@@ -1,4 +1,4 @@
-package by.academy.lesson2;
+package by.academy.lesson1;
 
 public class Application {
     public static void main(String[] args) {
