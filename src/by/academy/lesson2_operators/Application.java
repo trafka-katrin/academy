@@ -12,12 +12,10 @@ public class Application {
          task_1.setfFinalPrice();
          */
 
-        /*
+
         System.out.println("Задание №2");
-        Task_2 task_2 = new Task_2();
-        task_2.getVariaBle();
-        task_2.defineVariaBle();
-        */
+        Task_2.getVariaBle();
+
 
         /*
         System.out.println("Задание №3");
@@ -29,10 +27,11 @@ public class Application {
         Task_4 task_4 = new Task_4();
         task_4.printPower();
 
-         */
+         /*
         System.out.println("Задание №5");
         Task_5 task_5 = new Task_5();
         task_5.getArrNunber();
+         */
 
 
 

@@ -17,7 +17,7 @@ public class Task_1 {
         Scanner scan = new Scanner(System.in);
         buyersAge = scan.nextInt();
     }
-    public double setfFinalPrice (){
+    public void setfFinalPrice (){
         if (purchaseAmount > 0 && purchaseAmount < 100 ) {
             finalPrice =  purchaseAmount * 0.95;
         } else if (purchaseAmount >= 100 && purchaseAmount < 200 ) {
@@ -37,7 +37,6 @@ public class Task_1 {
             System.out.println("Введена некорректная сумма покупки. Сумма покупки должна быть больше 0");
         }
         System.out.println("Сумма покупки со скидкой " + finalPrice);
-        return finalPrice;
     }
 
 
