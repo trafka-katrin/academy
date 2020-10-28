@@ -11,15 +11,16 @@ public class Task_2 {
         if (scan.hasNextInt()) {
             variaBle = "Integer";
             System.out.println("Переменная типа " + variaBle);
-        } else if (scan.hasNextFloat()){
-            variaBle = "Float";
-            System.out.println("Переменная типа " + variaBle);
-            double n = scan.nextFloat();
-            System.out.println(n);
         } else if (scan.hasNextDouble()){
-            variaBle = "Double";
-            System.out.println("Переменная типа " + variaBle);
-        } else if (scan.hasNextLine()) {
+            double d = scan.nextDouble();
+            if (d <= Float.MAX_VALUE){
+                variaBle = "Float";
+                System.out.println("Переменная типа " + variaBle);
+            } else {
+                variaBle = "Double";
+                System.out.println("Переменная типа " + variaBle);
+            }
+        } else if   (scan.hasNextLine()) {
             variaBle = scan.nextLine();
             int len = variaBle.length();
             if (len > 1) {

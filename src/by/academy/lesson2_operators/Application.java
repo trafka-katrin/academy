@@ -67,3 +67,9 @@ public class Application {
         } while (taskNumber>0&& taskNumber<5);
     }
 }
+
+/*
+Не работает hasNextFloat
+Одно и то же число в double и float не равно само себе
+
+ */
