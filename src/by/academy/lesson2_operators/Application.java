@@ -14,10 +14,8 @@ public class Application {
                 case 1:
                     do {
                         System.out.println("Задание №1");
-                        Task_1 task_1 = new Task_1();
-                        task_1.getPurchaseAmount();
-                        task_1.getBuyersAge();
-                        task_1.setfFinalPrice();
+                        Task_1.getPurchaseAmount();
+                        Task_1.setfFinalPrice();
                         System.out.println("Для повторного запуска задания введите 1, для выбора другого задания не 1");
                         taskNumber = scan.nextInt();
                     } while (taskNumber == 1);
@@ -46,7 +44,7 @@ public class Application {
                         System.out.println("Задание №4");
                         Task_4 task_4 = new Task_4();
                         task_4.printPower();
-                        System.out.println("Для повторного запуска задания введите 3, для выбора другого задания не 3");
+                        System.out.println("Для повторного запуска задания введите 4, для выбора другого задания не 4");
                         taskNumber = scan.nextInt();
                     } while (taskNumber == 4);
                     break;
@@ -56,7 +54,7 @@ public class Application {
                         System.out.println("Задание №5");
                         Task_5.getArrNunber();
                         Task_5.getArray();
-                        System.out.println("Для повторного запуска задания введите 3, для выбора другого задания не 3");
+                        System.out.println("Для повторного запуска задания введите 5, для выбора другого задания не 5");
                         taskNumber = scan.nextInt();
                     } while (taskNumber == 5);
                     break;
@@ -64,7 +62,9 @@ public class Application {
                     System.out.println("Пока");
                     break;
             }
+
         } while (taskNumber>0&& taskNumber<5);
+
     }
 }
 
