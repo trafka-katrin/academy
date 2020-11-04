@@ -34,7 +34,7 @@ public class Task_2 {
                     if (scan.hasNextDouble()){
                         double d = scan.nextDouble();
                         if (d <= Float.MAX_VALUE){
-                            double floatM = Math.pow(d,2);
+                            double floatM = Math.pow(2,d);
                             variaBle = "Float";
                             System.out.println("Переменная типа " + variaBle + " = " + d + ". Квадрат переменной = " + floatM);
                         } else {
