@@ -69,7 +69,7 @@ public class Application {
 }
 
 /*
-Не работает hasNextFloat
+Не работает hasNextFloat или ХЗ как работает
 Одно и то же число в double и float не равно само себе
 
  */
