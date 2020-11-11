@@ -6,8 +6,9 @@ public class Main {
         //Task_2.compareStrings();
         //Task_3.getWords();
         //Task_3.setMinWord();
-        Task_4.getWords();
-        Task_4.setWordResult();
+        //Task_4.getWords();
+        //Task_4.setWordResult();
+        Task_5.getPlayers();
     }
 }
 
