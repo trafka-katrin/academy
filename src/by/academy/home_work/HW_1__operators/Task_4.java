@@ -1,4 +1,4 @@
-package by.academy.lesson2_operators;
+package by.academy.home_work.HW_1__operators;
 
 public class Task_4 {
     double power = 0;

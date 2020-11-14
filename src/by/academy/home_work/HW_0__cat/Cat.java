@@ -1,4 +1,4 @@
-package by.academy.lesson1;
+package by.academy.home_work.HW_0__cat;
 import java.util.Scanner;
 
 public class Cat {

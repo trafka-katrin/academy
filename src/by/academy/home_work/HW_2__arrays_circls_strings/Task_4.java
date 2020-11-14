@@ -1,6 +1,4 @@
-package by.academy._2_arrays_circls_strings_HW;
-
-import java.util.Scanner;
+package by.academy.home_work.HW_2__arrays_circls_strings;
 
 public class Task_4 {
     static private String word1;
@@ -8,12 +6,12 @@ public class Task_4 {
     static private String wordResult;
     public static void getWords(){
         do {
-            Scanner scan = new Scanner(System.in);
             System.out.println("Введите 2 слова с четным числом букв");
-            word1 = scan.next();
-            word2 = scan.next();
+            word1 = Main.scanS();
+            System.out.println("А теперь второе");
+            word2 = Main.scanS();;
             if (word1.length()<2 || word2.length()<2) {
-                System.out.println("Слова не должны быть меньше 2 букв");
+                System.out.println("Слова не должны содержать меньше 2 букв");
             }
         } while (word1.length()<2 || word2.length()<2);
 

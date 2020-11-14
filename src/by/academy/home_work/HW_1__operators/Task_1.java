@@ -1,4 +1,4 @@
-package by.academy.lesson2_operators;
+package by.academy.home_work.HW_1__operators;
 
 import java.util.Scanner;
 
@@ -6,7 +6,7 @@ public  class Task_1 {
     static double purchaseAmount;
     static int buyersAge;
     static double finalPrice;
-    public Task_1 (){};
+    public Task_1 (){}
     public static void getPurchaseAmount () {
         System.out.println("Введите сумму покупки (больше 0)");
         Scanner scan = new Scanner(System.in);

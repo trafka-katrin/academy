@@ -2,7 +2,9 @@ package by.academy.test;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World.Hello, Java.");
+        String s = "wer";
+        s = "dddd";
+        System.out.println(s);
     }
 
 }

@@ -1,43 +1,46 @@
-package by.academy.lesson2_operators;
+package by.academy.home_work.HW_1__operators;
 
 import java.util.Scanner;
 
 public class Task_5 {
     static int arrLen;
     static int numberIn;
-    static int countPairs = 0;
+    static int countPairs;
     static int[] array;
     public Task_5(){};
     public static void getArrNunber() {
-        boolean n = false;
-        do {
-            Scanner scan = new Scanner(System.in);
-            System.out.println("Введите 2 целых числа через пробел: 1) размер массива 2) просто целое число");
-            if (scan.hasNextInt()) {
-                arrLen = scan.nextInt();
-                if (arrLen <= 0){
-                    System.out.println("Длина массива должна быть не меньше 1");
+            boolean repitEnter = false;
+            do {
+                Scanner scan0 = new Scanner(System.in);
+                repitEnter = false;
+                System.out.println("Введите 2 целых числа через пробел:\n" +
+                        "1) размер массива (>1) \n" +
+                        "2) просто целое число");
+                boolean isArLenInt = scan0.hasNextInt();
+                String arLenS = scan0.next();
+                boolean isNumInt = scan0.hasNextInt();
+                String numS = scan0.next();
+                if (isArLenInt && isNumInt){
+                    arrLen = Integer.parseInt(arLenS);
+                    numberIn = Integer.parseInt(numS);
+                    if (arrLen < 2){
+                        System.out.println("Длина массива не должна быть мееньше 2");
+                        repitEnter = true;
+                    } else {}
                 } else {
-                    System.out.println("Длина массива " + arrLen);
+                    System.out.println("Веденные данные не соответствуют двум целым числам");
+                    repitEnter = true;
                 }
-            } else {
-                System.out.println("Длина массива не int");
-                scan.next();
-            }
+            } while (repitEnter);
 
-            if (!scan.hasNextInt()) {
-                System.out.println("Значение числа не int");
-                n = false;
-            } else {
-                numberIn = scan.nextInt();
-                n = true;
-                System.out.println("Веденное число " + numberIn);
-            }
-        } while ((arrLen <= 0) || (n == false));
+            System.out.println("Длина массива " + arrLen);
+            System.out.println("Веденное число " + numberIn);
+
     }
 
     public static void getArray(){
         array = new int [arrLen];
+        countPairs = 0;
         int uniq;
         int ex;
 

@@ -1,4 +1,4 @@
-package by.academy.lesson2_classwork;
+package by.academy.class_work;
 
 public class Task_1 {
     public static void sqrt (){

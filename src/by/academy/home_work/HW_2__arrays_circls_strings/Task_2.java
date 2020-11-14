@@ -1,6 +1,4 @@
-package by.academy._2_arrays_circls_strings_HW;
-
-import java.util.Scanner;
+package by.academy.home_work.HW_2__arrays_circls_strings;
 
 public class Task_2 {
     static private String s1;
@@ -8,10 +6,11 @@ public class Task_2 {
 
     public static void getStrings(){
         System.out.println("Введите первую строку");
-        Scanner scan = new Scanner(System.in);
-        s1 = scan.nextLine();
+        s1 = Main.scanL();
+        System.out.println(s1);
         System.out.println("Введите вторую строку");
-        s2 = scan.nextLine();
+        s2 = Main.scanL();
+        System.out.println(s1);
     }
     public static boolean compareStrings (){
         if (s1.length()==s2.length()){

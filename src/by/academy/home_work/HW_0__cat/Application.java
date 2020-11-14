@@ -1,4 +1,4 @@
-package by.academy.lesson1;
+package by.academy.home_work.HW_0__cat;
 
 public class Application {
     public static void main(String[] args) {
