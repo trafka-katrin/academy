@@ -8,8 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         String taskNumber;
-        System.out.println("Введите номер задания от 1 до 5, для выхода другое целое число, " +
-                "для выхода с ошибкой что-нибудь еще");
+        System.out.println("Введите номер задания от 1 до 5, для выхода что-нибудь еще");
         taskNumber = Main.scanS();
         do {
 
@@ -21,7 +20,7 @@ public class Main {
                         by.academy.home_work.HW_1__operators.Task_5.getArrNunber();
                         by.academy.home_work.HW_1__operators.Task_5.getArray();
                         System.out.println("Для повторного запуска этого задания введите 1, " +
-                                "для выбора другого задания его номер, для выхода с ошибкой что-нибудь еще");
+                                "для выбора другого задания его номер, для выхода что-нибудь еще");
                         taskNumber = Main.scanS();
                         System.out.println();
                     } while (taskNumber.equals("1"));
@@ -33,7 +32,7 @@ public class Main {
                         Task_2.getStrings();
                         Task_2.compareStrings();
                         System.out.println("Для повторного запуска этого задания введите 2, " +
-                                "для выбора другого задания его номер, для выхода с ошибкой что-нибудь еще");
+                                "для выбора другого задания его номер, для выхода что-нибудь еще");
                         taskNumber = Main.scanS();
                     } while (taskNumber.equals("2"));
                     break;
@@ -43,7 +42,7 @@ public class Main {
                         Task_3.getWords();
                         Task_3.setMinWord();
                         System.out.println("Для повторного запуска этого задания введите 3, " +
-                                "для выбора другого задания его номер, для выхода с ошибкой что-нибудь еще");
+                                "для выбора другого задания его номер, для выхода что-нибудь еще");
                         taskNumber = Main.scanS();
                     } while (taskNumber.equals("3"));
                     break;
@@ -56,7 +55,7 @@ public class Main {
                         Task_4.getWords();
                         Task_4.setWordResult();
                         System.out.println("Для повторного запуска этого задания введите 4, " +
-                                "для выбора другого задания его номер, для выхода с ошибкой что-нибудь еще");
+                                "для выбора другого задания его номер, для выхода что-нибудь еще");
                         taskNumber = Main.scanS();
                     } while (taskNumber.equals("4"));
                     break;
@@ -66,7 +65,8 @@ public class Main {
                         System.out.println("Задание №5. Раздача карт для игры в покер");
                         Task_5.getPlayers();
                         Task_5.setCards();
-                        System.out.println("Для повторного запуска этого задания введите 5, для выбора другого задания его номер, для выхода с ошибкой что-нибудь еще");
+                        System.out.println("Для повторного запуска этого задания введите 5, " +
+                                "для выбора другого задания его номер, для что-нибудь еще");
                         taskNumber = Main.scanS();
                     } while (taskNumber.equals("5"));
                     break;
