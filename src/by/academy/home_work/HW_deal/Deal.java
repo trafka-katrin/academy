@@ -7,9 +7,8 @@ public class Deal {
     private Integer buyerId;
     private Double dealSumm;
     private Boolean dealResult;
-    private String goodsIDTemp [][] = new String[100][3];
-    private static String arGoodsId [][] = new String [100][3];
-    private static String arGoodsIdStub [][] = {
+    private static String arGoodsIDTemp[][] = new String[100][3];
+    private static String arGoodsIdTempStub[][] = {
             {"GOODS_ID","GOODS_COUNT","DEAL_ID"},
     };
     private static String arDeals [][] = new String[100][7];
@@ -63,18 +62,16 @@ public class Deal {
         System.out.println("Данные предмета сделки");
 
         do {
-        System.out.println("Выберите товары для сделки");
+        System.out.println("Выберите товар для сделки");
         Deal.chouseGoodArShow();
         dealx.chouse1GoodEnter();
-        System.out.println("Внести еще 1 товар ?");
-
+        System.out.println("Внести еще 1 товар ? Внести - \"да\", пропустить - все остальное ");
         } while (Main.scanNext().toLowerCase().matches("да"));
-
 
         System.out.println("Данные покупателя");
         Person.createPerson();
-
-
+        System.out.println(" счет суммы товаров");
+        dealx.dealBeOrNotToBe(dealx.countDealGoods());
 
     }
 
@@ -87,9 +84,9 @@ public class Deal {
     }
 
     static void fillInArGoodsTemp(){
-        for (int i = 0; i< arGoodsIdStub.length; i++){
-            for (int j = 0; j< 7; j++){
-                arGoodsId[i][j] = arGoodsIdStub[i][j];
+        for (int i = 0; i< arGoodsIdTempStub.length; i++){
+            for (int j = 0; j< 3; j++){
+                arGoodsIDTemp[i][j] = arGoodsIdTempStub[i][j];
             }
         }
     }
@@ -108,8 +105,8 @@ public class Deal {
     private Integer getFirstFreeArGoodsTempId(){
         Integer n = null;
 
-            for (int i = 0; i< goodsIDTemp.length; i++){
-            if (goodsIDTemp[i][0]==null){
+            for (int i = 0; i< arGoodsIDTemp.length; i++){
+            if (arGoodsIDTemp[i][0]==null){
                 n = i;
                 break;
             }
@@ -121,15 +118,15 @@ public class Deal {
 
         String tempGoodCount = Main.isScanInt().toString();
         Integer freeTempGoodId = getFirstFreeArGoodsTempId();
-        goodsIDTemp[freeTempGoodId][0] = goodID.toString();
-        goodsIDTemp[freeTempGoodId][1] = tempGoodCount;
+        arGoodsIDTemp[freeTempGoodId][0] = goodID.toString();
+        arGoodsIDTemp[freeTempGoodId][1] = tempGoodCount;
         showArGoodsTemp();
 
 
     }
 
     public static void chouseGoodArShow (){
-        System.out.println("Показать доступный для выбора список товаров? (да/нет)");
+        System.out.println("Показать доступный для выбора список товаров? Показать - \"да\", пропустить - все остальное ");
         Boolean ch = Main.scanNext().toLowerCase().contains("да");
         if(ch){
             Good.showArGoods();
@@ -160,7 +157,31 @@ public class Deal {
 
     }
 
-    public void chouseGoodsEnter(){
+    Double countDealGoods (){
+        dealSumm = 0.00;
+        for (int i = 0; i < getFirstFreeArGoodsTempId();i++){
+            if (arGoodsIDTemp[i][0].matches("[\\d]+")){
+                Integer n = Integer.parseInt(arGoodsIDTemp[i][0]);
+                Double goodPrice = Double.parseDouble(Good.arGoods[n][3]);
+                System.out.println(goodPrice);
+                Double goodCount = Double.parseDouble(arGoodsIDTemp[i][1]);
+                Double goodSumm = goodCount * goodPrice;
+                dealSumm =  goodSumm + dealSumm;
+            } else {
+                System.out.println(i);
+
+            }
+        }
+        System.out.println("dealSumm " + dealSumm);
+        return dealSumm;
+    }
+
+    void dealBeOrNotToBe(Double summ){
+        if (dealSumm > summ){
+            System.out.println("Сделка не состоялась ");
+        } else {
+            System.out.println("Сделка состоялась ");
+        }
 
     }
 
@@ -179,7 +200,7 @@ public class Deal {
         // Проверка содержимого массива
         for (int i = 0; i< 5; i++){
             for (int j = 0; j< 3; j++){
-                System.out.print(goodsIDTemp [i][j] + " | " );
+                System.out.print(arGoodsIDTemp[i][j] + " | " );
             }
             System.out.println(" ");
         }

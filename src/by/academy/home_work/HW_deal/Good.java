@@ -4,11 +4,11 @@ public class Good {
     private String goodName;
     private String goodType;
     private Double goodPrice;
-    private static String arGoods [][] = new String[100][7];
+    static String arGoods [][] = new String[100][7];
     private static String arGoodsStub [][] = {
             {"GOOD_ID","GOOD_TYPE","GOOD_MODEL","GOOD_PRICE"},
-            {"1","Чайник","императорский багряный", "10"},
-            {"2","Холодильник","фантазия снегурочки №1","20"}
+            {"1","Чайник","императорский багряный", "10.00"},
+            {"2","Холодильник","фантазия снегурочки №1","20.00"}
     };
 
     public Good(){
@@ -72,6 +72,7 @@ public class Good {
                 break;
             }
         }
+        System.out.println("getFirstFreeArGoodsId " + n);
         return n;
     }
 

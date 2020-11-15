@@ -79,7 +79,7 @@ public class Person {
 
     }
 
-    public static void createPerson(){
+    public static Integer createPerson(){
         System.out.println("Введите имя");
 
         Person personX = new Person(Main.scanNextLine());
@@ -88,16 +88,17 @@ public class Person {
 
         personX.setPersonMoney(Double.parseDouble(Main.scanNext()));
 
-        System.out.println(personX.personName  + personX.personId + personX.getPersonMoney());
+        System.out.println(personX.personId + personX.personName  + personX.getPersonMoney());
 
         Person.setPersonsDataToAr(Person.getFirstFreeArPersonsId(), personX.personName, personX.personMoney.toString());
 
         Person.showArPersons();
 
+        Integer personId = getFirstFreeArPersonsId()-1;
+
+        return personId;
 
     }
-
-
 
 }
 

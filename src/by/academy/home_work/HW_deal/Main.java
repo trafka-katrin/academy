@@ -6,6 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         Deal.fillInArDeals();
+        Deal.fillInArGoodsTemp();
         Person.fillInArPersons();
         Good.fillInArGoods();
 
@@ -38,6 +39,7 @@ public class Main {
         return i;
 
     }
+
 
     public static void closeScan(){
         Scanner scan = new Scanner("");
