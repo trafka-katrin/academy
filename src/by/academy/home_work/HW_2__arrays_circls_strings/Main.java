@@ -76,7 +76,7 @@ public class Main {
             }
 
         } while (taskNumber.matches("[1-5]{1}"));
-
+        closeScan();
     }
 
     public static String scanL(){
@@ -90,16 +90,9 @@ public class Main {
         return s;
     }
 
-    public static Integer scanI(){
-        Scanner scan = new Scanner(System.in);
-        Integer i = scan.nextInt();
-        return i;
-    }
-
-    public static Boolean scanB(){
-        Scanner scan = new Scanner(System.in);
-        Boolean b = scan.hasNextInt();
-        return b;
+    public static void closeScan(){
+        Scanner scan = new Scanner("");
+        scan.close();
     }
 
 
