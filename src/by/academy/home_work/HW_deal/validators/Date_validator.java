@@ -1,0 +1,54 @@
+package by.academy.home_work.HW_deal.validators;
+
+import by.academy.home_work.HW_deal.Main;
+
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Date_validator {
+    boolean b = false;
+    private String date;
+
+    public static String validateDate() {
+        boolean b = false;
+        String date;
+
+        do {
+            date = Main.scanNextLine();
+            Pattern datePattern = Pattern.compile
+                    ("^[0-3]{1}[0-9]{1}([//]{1}[0-1]{1}[0-9]{1}[//]{1}|-[0-1]{1}[0-9]{1}-)20[\\d]{2}$");
+            Matcher matcher = datePattern.matcher(date);
+            if (matcher.matches()) {
+                b = true;
+            } else {
+                System.out.println("Дата введена в неверном формате, повторите ввод");
+            }
+        } while (!b);
+
+        return date;
+    }
+
+    public static void parceDate(String date){
+        SimpleDateFormat oldDate;
+
+        if (date.matches("[\\d]{2}-[\\d]{2}-[\\d]{4}")){
+            oldDate = new SimpleDateFormat("dd-MM-yyyy");
+        } else {
+            oldDate = new SimpleDateFormat("dd/MM/yyyy");
+        }
+
+        SimpleDateFormat dayF = new SimpleDateFormat("dd");
+        SimpleDateFormat monthF = new SimpleDateFormat("MM");
+        SimpleDateFormat year = new SimpleDateFormat("yyyy");
+
+        Date newDate = oldDate.parse(date, new ParsePosition(0));
+
+        System.out.println("Дата сделки \nДень: " +dayF.format(newDate) + " \nМесяц: " +
+                monthF.format(newDate) + " \nГод: " + year.format(newDate));
+    }
+
+
+}

@@ -1,102 +1,50 @@
 package by.academy.home_work.HW_deal;
 
 public class Person {
+    static String arPersons [][] = new String[100][3];
+    static String arPersonsStub [][] = {
+                        {"PERSON_ID","PERSON_NAME","PERSON_MONEY"},
+                        {"1","Паца-Ваца"," 50"},
+                        {"2","Десантник Степочкин","100"}};
     private Integer personId;
     private String personName;
     private Double personMoney;
-    private static String arPersons [][] = new String[100][7];
-    private static String arPersonsStub [][] = {
-            {"PERSON_ID","PERSON_NAME","PERSON_MONEY"},
-            {"0","Ivanov"," 50"},
-            {"1","Petrov","100"}
-    };
-
-    public Person (){
-        this.personName = "John Doe";
-        this.personMoney = 0.0;
-    }
 
     public Person (String namePerson){
         this.personName = namePerson;
-        this.personId = getFirstFreeArPersonsId();
-    }
-
-    public String getPersonName() {
-        return personName;
-    }
-
-    public void setPersonName(String personName) {
-        this.personName = personName;
-    }
-
-    public double getPersonMoney() {
-        return personMoney;
+        this.personId = Main.getFirstFreeArItem(arPersons);
     }
 
     public void setPersonMoney(double personMoney) {
         this.personMoney = personMoney;
     }
 
-    public void chooseGoodForSale (){
-
-    }
-
-    static void fillInArPersons(){
-        for (int i = 0; i< arPersonsStub.length; i++){
-            for (int j = 0; j< 3; j++){
-                arPersons[i][j] = arPersonsStub[i][j];
-            }
-        }
-
-    }
-
-    private static Integer getFirstFreeArPersonsId(){
-        Integer n = null;
-        for (int i = 0; i< arPersons.length; i++){
-            if (arPersons[i][0]==null){
-                n = i;
-                break;
-            }
-        }
-        return n;
-    }
-
-    private static void setPersonsDataToAr(Integer personId, String personName, String personMoney){
-        Integer arPersonNum = (personId - 1);
-        arPersons[personId][0] = arPersonNum.toString();
+    static void setPersonsDataToAr(Integer personId, String personName, String personMoney){
+        arPersons[personId][0] = personId.toString();
         arPersons[personId][1] = personName;
         arPersons[personId][2] = personMoney;
-    }
-
-    public static void showArPersons(){
-        // Проверка содержимого массива
-        for (int i = 0; i< 5; i++){
-            for (int j = 0; j< 3; j++){
-                System.out.print(arPersons [i][j] + " | " );
-            }
-            System.out.println(" ");
-        }
 
     }
 
     public static Integer createPerson(){
-        System.out.println("Введите имя");
-
+        System.out.println("Введите имя клиента");
         Person personX = new Person(Main.scanNextLine());
 
         System.out.println("Введите количество денег клиента");
-
         personX.setPersonMoney(Double.parseDouble(Main.scanNext()));
 
-        System.out.println(personX.personId + personX.personName  + personX.getPersonMoney());
+        setPersonsDataToAr(Main.getFirstFreeArItem(arPersons), personX.personName, personX.personMoney.toString());
 
-        Person.setPersonsDataToAr(Person.getFirstFreeArPersonsId(), personX.personName, personX.personMoney.toString());
+        Integer personId = Main.getFirstFreeArItem(arPersons);
 
-        Person.showArPersons();
+        return personId-1;
 
-        Integer personId = getFirstFreeArPersonsId()-1;
+    }
 
-        return personId;
+    static void updatePersonMoney (Integer id, Double summ){
+        Double prevPersonMoney = Double.parseDouble(arPersons [id][2]);
+        Double postPersonMoney = prevPersonMoney - summ;
+        arPersons [id][2] = postPersonMoney.toString();
 
     }
 
