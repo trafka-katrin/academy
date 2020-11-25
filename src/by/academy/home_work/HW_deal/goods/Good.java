@@ -5,14 +5,13 @@ import by.academy.home_work.HW_deal.Main;
 
 public class Good {
     protected static Double discontByGoodsSumm = 5.0;
-    protected static String arGoods [][] = new String[100][6];
     protected static String arGoodsStub [][] = {
             {"GOOD_ID","GOOD_TYPE","GOOD_NAME","GOOD_PRICE","SALE_TYPE","GOOD_LOT_SIZE"},
             {"1","Чайник","императорский багряный", "10.00","by_piece","1"},
             {"2","Холодильник","фантазия снегурочки №2","20.00","by_piece","1"},
             {"3","Дрова","непослушный Буратино","1.00","in_lots","10"},
             {"4","Компот","аннигиляция сознания 76°","40.00","by_volume","1",}};
-
+    protected static String arGoods [][] = new String[100][arGoodsStub[0].length];
     protected Integer goodID;
     protected String goodType;
     protected String goodName;
@@ -39,7 +38,7 @@ public class Good {
 
     public static Integer createGood(){
         System.out.println("Внесите данные нового товара");
-        System.out.println("Введите способ продажи товара: \"1\" поштучно, \"2\" на разлив, \"3\" партиями ");
+        System.out.println("Введите способ продажи товара: ▶ поштучно \"1\"    ▶ на разлив \"2\"    ▶ партиями \"3\"");
 
         Integer saleType = Main.isScanNotNegativeInt();
 
@@ -151,7 +150,7 @@ public class Good {
             } else {}
         }
 
-        System.out.printf("Итоговая сумма сделки: %.2f", dealSumm);System.out.println();
+        System.out.printf("Итоговая сумма сделки: %.2f \n", dealSumm);System.out.println();
         return dealSumm;
 
     }

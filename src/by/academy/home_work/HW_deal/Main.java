@@ -2,6 +2,8 @@ package by.academy.home_work.HW_deal;
 
 import by.academy.home_work.HW_deal.goods.Good;
 import by.academy.home_work.HW_deal.validators.Validator;
+
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -36,10 +38,12 @@ public class Main {
 
         do {
             System.out.println(
+                                "▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼\n"+
                                 "ГЛАВНОЕ МЕНЮ \n" +
-                                "Для создания новой сделки введите 1. " +
-                                "Для просмотра информации по сделкам введите 2. " +
-                                "Для просмотра данных массивов введите 3 .");
+                                "▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲\n"+
+                                "▶ Для создания новой сделки введите \"1\"    " +
+                                "▶ Для просмотра информации по сделкам введите \"2\"    " +
+                                "▶ Для просмотра данных массивов введите \"3\".");
             menuItemI = scanNext();
 
             switch (menuItemI){
@@ -47,7 +51,24 @@ public class Main {
                     break;
 
                 case "2":
-                    Deal.showDealInfo();
+                    String memuItem2;
+                    do {
+                        System.out.println ("▶ Для просмотра информации о сделке введите ее ID   " +
+                                            "▶ Для просмотра всех сделок введите \"0\"   " +
+                                            "▶ Для выхода из меню введите другой символ");
+                        memuItem2 = Main.scanNext();
+                        if (memuItem2.matches("[1-9]\\d*")){
+                            Deal.showDealInfo(Integer.parseInt(memuItem2));
+                        } else if (memuItem2.matches("0")){
+                            Main.showAr(Deal.arDeals, "1");
+                            Integer countDeals = Main.getFirstFreeArItem(Deal.arDeals);
+                            for(int i = 1; i < countDeals; i++){
+                                Deal.showDealInfo(i);
+                            }
+                        }else {}
+
+                    }while (memuItem2.matches("(0(?=)|[1-9])\\d*"));
+
                     break;
 
                 case "3":
@@ -100,11 +121,11 @@ public class Main {
         return email;
     }
 
-    public static void showAr(String m[][], String n){
+    public static void showAr(String arName[][], String strinsBefor){
 
-        for (int i = 0; i< Integer.parseInt(n); i++){
-            for (int j = 0; j< m[i].length; j++){
-                System.out.print(m [i][j] + " | " );
+        for (int i = 0; i< Integer.parseInt(strinsBefor); i++){
+            for (int j = 0; j< arName[i].length; j++){
+                System.out.print(arName [i][j] + " | " );
             }
             System.out.println(" ");
         }
@@ -139,7 +160,7 @@ public class Main {
     }
 
     public static Integer getFirstFreeArItem(String[][] m){
-        Integer n = null;
+        Integer n = -1;
         for (int i = 0; i< m.length; i++){
             if (m [i][0]==null){
                 n = i;
@@ -147,6 +168,15 @@ public class Main {
             }
         }
         return n;
+    }
+
+    public static String[][] chekArLength(String[][] ar){
+        String tempAr[][] = new String[ar.length*2+1][ar[0].length];
+        if(getFirstFreeArItem(ar) == -1){
+            tempAr = Arrays.copyOf(ar, ar.length);
+            ar = tempAr;
+        }
+        return ar;
     }
 
     public static String scanNextLine(){

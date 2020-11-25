@@ -10,22 +10,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Deal {
-    public static String arDealGoodsIDTemp[][] = new String[100][13];
     public static String arDealGoodsIdTempStub[][] = {
             {"GOOD_ID", "GOODS_COUNT", "GOOD_TYPE", "GOOD_MODEL", "SALE_TYPE", "PRICE", "GOOD_LOT_SIZE",
             "TARA_DATA", "TARA_PRICE", "GOODS_PRICE", "DISCOUNT", "SALE_PRICE", "DEAL_ID"}};
-    public static String arDealGoods[][] = new String[100][13];
+    public static String arDealGoodsIDTemp[][] = new String[100][arDealGoodsIdTempStub[0].length];
     static String arDealGoodsStub[][] = {
             {"GOOD_ID", "GOODS_COUNT", "GOOD_TYPE", "GOOD_MODEL", "SALE_TYPE","PRICE", "GOOD_LOT_SIZE",
             "TARA_DATA", "TARA_PRICE", "GOODS_PRICE", "DISCOUNT", "SALE_PRICE","DEAL_ID"},
-            {"2","2","1","2","2","1","2","2","1","2","2","1","1"},
-            {"2","2","1","2","2","1","2","2","1","2","2","1","1"},
-            {"2","2","1","2","2","1","2","2","1","2","2","1","1"}};
-    static String arDeals [][] = new String[100][7];
+            {"testID","1","Что-то неведомое","модель-1","by_piece","10.0","1", null ,null,"10.0","0","10.0","1"},
+            {"testID","2","Что-то неведомое","модель-2 ","by_piece","20.0","1", null ,null,"40.0","0","40.0","1"},
+            {"testID","3","Что-то неведомое","модель-3 ","by_piece","30.0","1", null ,null,"90.0","0","90.0","2"}};
+    public static String arDealGoods[][] = new String[100][arDealGoodsStub[0].length];
     static String arDealsStub [][] = {
             {"DEAL_ID","DEAL_DATE","SELLER_ID","BUYER_ID","DEADLINE","DEAL_SUMM","DEAL_RESULT"},
             {"1","01.01.2020","2","1","0","40.00","true"},
             {"2","02.02.2020","1","2","1","130.00","false"}};
+    static String arDeals [][] = new String[100][arDealsStub[0].length];
     private String dealDate;
     private Integer sellerId;
     private Integer buyerId;
@@ -41,18 +41,23 @@ public class Deal {
     }
 
     public static void createDeal(){
-        System.out.println("СОЗДАНИЕ НОВОЙ СДЕЛКИ");
+        System.out.println( "-----------------------------------------\n" +
+                            "СОЗДАНИЕ НОВОЙ СДЕЛКИ\n" +
+                            "-----------------------------------------");
         Deal dealX = new Deal();
 
         System.out.println("Введите дату сделки в формате dd/MM/yyyy или dd-ММ-yyyy ");
         dealX.dealDate = Date_validator.validateDate();
         Date_validator.parceDate(dealX.dealDate);
 
-        System.out.println("1.0. ДАННЫЕ ПРОДАВЦА");
+        System.out.println( "_________________________________________\n" +
+                            "1. ДАННЫЕ ПРОДАВЦА\n");
+
         System.out.println("Выберите существующего клиента или внесите нового");
         dealX.chouseArItem( "seller");
 
-        System.out.println("1.1. ДАННЫЕ ПРЕДМЕТА СДЕЛКИ");
+        System.out.println( "_________________________________________\n" +
+                            "1.1. ДАННЫЕ ПРЕДМЕТА СДЕЛКИ\n");
         Main.fillInAr(dealX.arDealGoodsIDTemp,dealX.arDealGoodsIdTempStub);
 
         System.out.println("Выберите товар для сделки или создайте новый");
@@ -70,18 +75,20 @@ public class Deal {
                 System.out.println("В сделке 0 товаров. Внесите хотя бы 1 товар");
                 switchGoodMenu = "1";
             } else {
-                System.out.println("Внести еще 1 товар в сделку \"1\", удалить товар из сделки - \"0\", " +
-                        "перейти к следующему шагу - все остальное ");
+                System.out.println("▶ Внести еще 1 товар в сделку \"1\"   ▶ Удалить товар из сделки - \"0\"   " +
+                        "▶ Перейти к следующему шагу - все остальное ");
                 switchGoodMenu = Main.scanNext();
             }
 
         } while (switchGoodMenu.matches("[10]"));
 
-        System.out.println("2.0 ДАННЫЕ ПОКУПАТЕЛЯ");
+        System.out.println( "_________________________________________\n"+
+                            "2.0 ДАННЫЕ ПОКУПАТЕЛЯ\n");
         System.out.println("Выберите существующего клиента или внесите нового");
         dealX.chouseArItem("buyer");
 
-        System.out.println("3.0 ПРОВЕРКА ВОЗМОЖНОСТИ СДЕЛКИ");
+        System.out.println( "_________________________________________\n"+
+                            "3.0 ПРОВЕРКА ВОЗМОЖНОСТИ СДЕЛКИ\n");
         Good goodN = new Good();
         dealX.dealBeOrNotToBe(goodN.countDealGoods());
         dealX.setDealDataToAr();
@@ -208,7 +215,7 @@ public class Deal {
             Person.updatePersonMoney(buyerId, dealSumm);
         }
 
-        System.out.println("ID сделки " + q + "(deadline date " + arDeals[q][4]+ ")");
+        System.out.println("\nID сделки " + q + "(deadline date " + arDeals[q][4]+ ")");
 
     }
 
@@ -225,8 +232,8 @@ public class Deal {
         }
 
         do {
-            System.out.println("Просмотр списка существующих - \"s\", создание нового - \"0\", " +
-                    "выбор существующего - ID элемента списка");
+            System.out.println("▶ Просмотр списка существующих - \"s\"   ▶ Создание нового - \"0\"   " +
+                    "▶ Выбор существующего - ID элемента списка");
             strIn = Main.scanNext();
 
             if (strIn.matches("s")) {
@@ -289,9 +296,7 @@ public class Deal {
 
     }
 
-    public static void showDealInfo() {
-        System.out.println("Введите номер сделки для просмотра информации по ней, для просмотра всех сделок введите 0");
-        Integer dealNum = Main.isScanNotNegativeInt();
+    public static void showDealInfo(Integer dealNum) {
 
         if (dealNum > 0 && dealNum < Main.getFirstFreeArItem(arDeals)) {
             System.out.print("Сделка № " + dealNum + ". От " + arDeals[dealNum][1]);
@@ -328,6 +333,10 @@ public class Deal {
 
                     } else {}
             }
+
+            System.out.print("\n");
+        } else {
+            System.out.println("Cделки с таким ID не существует");
         }
 
     }

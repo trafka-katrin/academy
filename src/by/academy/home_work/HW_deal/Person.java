@@ -2,9 +2,6 @@ package by.academy.home_work.HW_deal;
 
 import by.academy.home_work.HW_deal.validators.BelarusPhoneValidator;
 import by.academy.home_work.HW_deal.validators.Date_validator;
-import by.academy.home_work.HW_deal.validators.Validator;
-
-import java.util.Date;
 
 public class Person {
 
@@ -31,6 +28,7 @@ public class Person {
 
     static void setPersonsDataToAr(Integer personId, String personName, String personMoney, String personDayOfBirth,
                                    String phone, String email){
+
         arPersons[personId][0] = personId.toString();
         arPersons[personId][1] = personName;
         arPersons[personId][2] = personMoney;
@@ -66,6 +64,7 @@ public class Person {
         System.out.println("Введите email");
 
         personX.email = Main.validateEmail();
+
 
         setPersonsDataToAr(Main.getFirstFreeArItem(arPersons), personX.personName,
                             personX.personMoney.toString(), personX.dateOfBirth, personX.phone, personX.email);
