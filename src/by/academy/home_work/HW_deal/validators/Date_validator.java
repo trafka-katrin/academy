@@ -18,8 +18,11 @@ public class Date_validator {
 
         do {
             date = Main.scanNextLine();
-            Pattern datePattern = Pattern.compile
-                    ("^[0-3]{1}[0-9]{1}([//]{1}[0-1]{1}[0-9]{1}[//]{1}|-[0-1]{1}[0-9]{1}-)20[\\d]{2}$");
+            Pattern datePattern = Pattern.compile(
+                                   "^(0(?=[1-9])|1|2|3(?=[01]))\\d" +
+                                    "(\\/(?!\\d{2}-)|-(?!\\d{2}\\/))" +
+                                    "(0(?=[1-9])|1(?=[012]))\\d[/-]" +
+                                    "(1(?=9)|2(?=0))[90][\\d]{2}$");
             Matcher matcher = datePattern.matcher(date);
             if (matcher.matches()) {
                 b = true;

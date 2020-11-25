@@ -1,9 +1,29 @@
 package by.academy.home_work.HW_deal;
 
 import by.academy.home_work.HW_deal.goods.Good;
+import by.academy.home_work.HW_deal.validators.Validator;
 import java.util.Scanner;
 
 public class Main {
+
+    public static class EmailValidator implements Validator {
+
+        public Boolean validate(String email){
+            Boolean chekEmail = false;
+            if(email.matches( "^[-a-z0-9!#$%&'*+/=?^_`{|}~]+" +
+                                    "(\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*" +
+                                    "@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*" +
+                                    "(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|" +
+                                    "name|net|org|pro|tel|travel|[a-z][a-z])$"))
+            {
+                chekEmail = true;
+            }
+            return chekEmail;
+
+        }
+
+
+    }
 
     public static void main(String[] args) {
         String menuItemI;
@@ -62,6 +82,24 @@ public class Main {
 
     }
 
+    public static String validateEmail(){
+        Boolean isEmailValid = false;
+        String email;
+        EmailValidator eV = new EmailValidator();
+
+        do {
+            email = Main.scanNextLine();
+            isEmailValid = eV.validate(email);
+
+            if (!isEmailValid){
+                System.out.println("Email введен в неверном формате, повторите ввод");
+            } else {}
+
+        } while (!isEmailValid);
+
+        return email;
+    }
+
     public static void showAr(String m[][], String n){
 
         for (int i = 0; i< Integer.parseInt(n); i++){
@@ -70,6 +108,23 @@ public class Main {
             }
             System.out.println(" ");
         }
+
+    }
+
+    public static void showArItem(String m[][], Integer itemI){
+
+        for (int i = 0; i< m[0].length; i++){
+
+            System.out.print(m [0][i] + " | " );
+        }
+
+        System.out.println(" ");
+
+        for (int i = 0; i< m[itemI].length; i++){
+
+            System.out.print(m [itemI][i] + " | " );
+        }
+        System.out.println(" ");
 
     }
 

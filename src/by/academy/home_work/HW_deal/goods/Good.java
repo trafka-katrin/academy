@@ -39,7 +39,7 @@ public class Good {
 
     public static Integer createGood(){
         System.out.println("Внесите данные нового товара");
-        System.out.println("Введите способ продажи товара: 1) поштучно 2) на развес 3) упаковками ");
+        System.out.println("Введите способ продажи товара: \"1\" поштучно, \"2\" на разлив, \"3\" партиями ");
 
         Integer saleType = Main.isScanNotNegativeInt();
 
@@ -60,7 +60,7 @@ public class Good {
 
         } while (saleType < 1 && saleType > 3);
 
-        System.out.println("Введите тип товара");
+        System.out.println("Введите тип товара ");
         goodX.goodType = Main.scanNextLine();
 
         System.out.println("Введите модель");
@@ -69,12 +69,11 @@ public class Good {
         System.out.println("Введите цену");
         goodX.goodPrice = Double.parseDouble(Main.scanNextLine());
 
-        System.out.println(goodX.goodType  + goodX.goodName + goodX.goodPrice);
-
         Good.setGoodsDataToAr(Main.getFirstFreeArItem(arGoods), goodX.goodType, goodX.goodName,
                             goodX.goodPrice.toString(), goodX.saleType, goodX.lotSize);
 
-        Main.showAr(arGoods,"5");
+        System.out.println("Создан новый товар ");
+        Main.showArItem(arGoods, Main.getFirstFreeArItem(arGoods)-1);
 
         return (Main.getFirstFreeArItem(arGoods) - 1);
 
@@ -123,10 +122,13 @@ public class Good {
 
                 goodSalePrice = bruttoPrice - bruttoPrice/100 * goodDiscontSize;
 
-                System.out.println(i + " Товар " + Good.arGoods[goodID][1] + " " + Good.arGoods[goodID][2] + " " +
-                        goodCount + " ед., способ реализации" + saleType + ", размер партии " + lotSize);
+                System.out.println(i + " Товар " + Good.arGoods[goodID][1] + " " + Good.arGoods[goodID][2] + " по " +
+                        goodPrice + " у.ё. " + goodCount + " штука, sale type " + saleType +
+                        " (" + lotSize + "), на сумму " + goodsPrice);
 
-                System.out.println(taraData);
+                if (saleType.matches("by_volume")){
+                    System.out.println(taraData);
+                } else {}
 
                 if (goodSalePrice < goodsPrice && goodSalePrice > 0){
                     System.out.printf("           Цена со скидкой %.0f %% %.2f \n", goodDiscontSize, goodSalePrice);
@@ -186,12 +188,6 @@ public class Good {
         return discount;
 
     }
-
-
-
-
-
-
 
 
 }

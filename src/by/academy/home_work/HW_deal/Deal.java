@@ -4,6 +4,11 @@ import by.academy.home_work.HW_deal.goods.Good;
 import by.academy.home_work.HW_deal.goods.Sale_in_lots;
 import by.academy.home_work.HW_deal.validators.Date_validator;
 
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 public class Deal {
     public static String arDealGoodsIDTemp[][] = new String[100][13];
     public static String arDealGoodsIdTempStub[][] = {
@@ -18,7 +23,7 @@ public class Deal {
             {"2","2","1","2","2","1","2","2","1","2","2","1","1"}};
     static String arDeals [][] = new String[100][7];
     static String arDealsStub [][] = {
-            {"DEAL_ID","DEAL_DATE","SELLER_ID","BUYER_ID","BUYER_SUMM","DEAL_SUMM","DEAL_RESULT"},
+            {"DEAL_ID","DEAL_DATE","SELLER_ID","BUYER_ID","DEADLINE","DEAL_SUMM","DEAL_RESULT"},
             {"1","01.01.2020","2","1","0","40.00","true"},
             {"2","02.02.2020","1","2","1","130.00","false"}};
     private String dealDate;
@@ -26,6 +31,7 @@ public class Deal {
     private Integer buyerId;
     private Double dealSumm;
     private Boolean dealResult;
+    private Date dealDeadline;
 
     public Deal (){
     }
@@ -44,37 +50,47 @@ public class Deal {
 
         System.out.println("1.0. ДАННЫЕ ПРОДАВЦА");
         System.out.println("Выберите существующего клиента или внесите нового");
-        dealX.chouseArShow(Person.arPersons);
-        dealX.chouseOneItemEnter(Person.arPersons, "seller");
+        dealX.chouseArItem( "seller");
 
         System.out.println("1.1. ДАННЫЕ ПРЕДМЕТА СДЕЛКИ");
         Main.fillInAr(dealX.arDealGoodsIDTemp,dealX.arDealGoodsIdTempStub);
 
+        System.out.println("Выберите товар для сделки или создайте новый");
+        String switchGoodMenu = "1";
+
         do {
-            System.out.println("Выберите товар для сделки или создайте новый");
-            dealX.chouseArShow(Good.getArGoods());
-            dealX.chouseOneItemEnter(Good.getArGoods(), "tempGood");
-            System.out.println("Внести еще 1 товар в сделку? Внести - \"да\", пропустить - все остальное ");
-        } while (Main.scanNext().toLowerCase().matches("да"));
+
+            if (switchGoodMenu.matches("1")) {
+                dealX.chouseArItem("tempGood");
+            } else if (switchGoodMenu.matches("0")){
+                dealX.deleteGoodFromDeal();
+            } else {}
+
+            if (Main.getFirstFreeArItem(arDealGoodsIDTemp)<2){
+                System.out.println("В сделке 0 товаров. Внесите хотя бы 1 товар");
+                switchGoodMenu = "1";
+            } else {
+                System.out.println("Внести еще 1 товар в сделку \"1\", удалить товар из сделки - \"0\", " +
+                        "перейти к следующему шагу - все остальное ");
+                switchGoodMenu = Main.scanNext();
+            }
+
+        } while (switchGoodMenu.matches("[10]"));
 
         System.out.println("2.0 ДАННЫЕ ПОКУПАТЕЛЯ");
         System.out.println("Выберите существующего клиента или внесите нового");
-        dealX.chouseArShow(Person.arPersons);
-        dealX.chouseOneItemEnter(Person.arPersons, "buyer");
+        dealX.chouseArItem("buyer");
 
         System.out.println("3.0 ПРОВЕРКА ВОЗМОЖНОСТИ СДЕЛКИ");
         Good goodN = new Good();
         dealX.dealBeOrNotToBe(goodN.countDealGoods());
         dealX.setDealDataToAr();
 
-        Main.showAr(arDeals,"5");
-        Main.showAr(arDealGoods,"5");
-        showDealInfo();
 
     }
 
     private void setGoodDataToArTemp(Integer goodID){
-        System.out.println("Введите количество товара");
+        System.out.println("Введите количество товара для сделки");
         Integer tempGoodCount = Main.isScanNotNegativeInt();
 
         if (tempGoodCount == 0){
@@ -91,7 +107,69 @@ public class Deal {
             Integer freeTempGoodId = Main.getFirstFreeArItem(arDealGoodsIDTemp);
             arDealGoodsIDTemp[freeTempGoodId][0] = goodID.toString();
             arDealGoodsIDTemp[freeTempGoodId][1] = tempGoodCount.toString();
+            System.out.println("Товар с ID " + goodID + " внесен в сделку");
+            return;
         }
+
+    }
+
+    private void deleteGoodFromDeal(){
+        System.out.println("Товары в сделке");
+
+        for (int i = 1; i < Main.getFirstFreeArItem(arDealGoodsIDTemp); i++){
+            for (int j = 0; j < Main.getFirstFreeArItem(Good.getArGoods()); j++){
+                if (Good.getArGoods()[j][0].matches(arDealGoodsIDTemp[i][0])){
+                    for (int k = 0 ; k < Good.getArGoods()[0].length; k++){
+                        System.out.print(Good.getArGoods()[j][k] + "  | ");
+                    }
+                }
+            }
+            System.out.println(" ");
+        }
+
+        String numberInS;
+         do {
+            System.out.println("Введите ID товара. который нужно удалить, для выхода из меню удаления - \"0\"");
+            numberInS = Main.scanNext();
+            if(numberInS.matches("[1-9]\\d*")){
+
+                Integer goodIDPosition = 0;
+
+                for (int i = 1; i < Main.getFirstFreeArItem(arDealGoodsIDTemp); i++){
+
+                    if (arDealGoodsIDTemp[i][0].matches(numberInS)){
+                        goodIDPosition = i;
+                    } else {}
+
+                }
+
+                if (goodIDPosition > 0){
+                    String tempAr [][] = new String[arDealGoodsIDTemp.length][arDealGoodsIDTemp[0].length];
+                    Integer arStrCounter = 0;
+
+                    for (int i = 0 ; i < (Main.getFirstFreeArItem(arDealGoodsIDTemp)-1); i++){
+                        if (i == goodIDPosition) {
+                            arStrCounter++;
+                        } else {}
+
+                        for (int j = 0; j < 2; j++) {
+                            tempAr[i][j] = arDealGoodsIDTemp[arStrCounter][j];
+                        }
+                        arStrCounter++;
+                    }
+
+                    arDealGoodsIDTemp = tempAr;
+                    System.out.println("Товар с ID " + numberInS + " удален из сделки");
+                    return;
+
+                } else {
+                    System.out.println("Товара с таким ID нет в сделке");
+                }
+
+            } else if (numberInS.matches("0")){
+                return;
+            } else {}
+        }while (!numberInS.matches("[1-9]\\d*"));
 
     }
 
@@ -101,7 +179,8 @@ public class Deal {
         arDeals[q][1] = dealDate;
         arDeals[q][2] = sellerId.toString();
         arDeals[q][3] = buyerId.toString();
-        arDeals[q][4] = " ";
+        arDeals[q][4] = LocalDateTime.now().plus(Period.ofDays(10)).
+                                            format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a"));
         arDeals[q][5] = dealSumm.toString();
         arDeals[q][6] = dealResult.toString();
         Integer m = Main.getFirstFreeArItem(arDealGoods);
@@ -129,56 +208,71 @@ public class Deal {
             Person.updatePersonMoney(buyerId, dealSumm);
         }
 
+        System.out.println("ID сделки " + q + "(deadline date " + arDeals[q][4]+ ")");
+
     }
 
-    private void chouseArShow(String m[][]){
-        System.out.println("Показать список существующих? Показать - \"да\", пропустить - все остальное ");
-        Boolean ch = Main.scanNext().toLowerCase().contains("да");
+    private void chouseArItem(String menuType) {
+        Boolean repitMenu = true;
+        String strIn;
+        Integer itemID;
+        String arToShow[][];
 
-        if(ch){
-            Main.showAr(m, "5");
+        if (menuType.matches("tempGood")) {
+            arToShow = Good.getArGoods();
+        } else {
+            arToShow = Person.arPersons;
         }
 
-    }
+        do {
+            System.out.println("Просмотр списка существующих - \"s\", создание нового - \"0\", " +
+                    "выбор существующего - ID элемента списка");
+            strIn = Main.scanNext();
 
-    public void chouseOneItemEnter(String s [][], String sName){
-        System.out.println("Для выбора существующего элемента введите его ID, чтобы внести новый введите 0");
-        Integer existingItemId = Main.isScanNotNegativeInt();
+            if (strIn.matches("s")) {
+                        Main.showAr(arToShow, Main.getFirstFreeArItem(arToShow).toString());
+                        continue;
+            } else if (strIn.matches("0")) {
 
-            if (existingItemId > 0 && existingItemId < (Main.getFirstFreeArItem(s))){
-                Integer arFirstStrLen = s[0].length;
-                System.out.print("Выбран элемент c ID ");
+                        if (menuType.matches("tempGood")) {
+                            itemID = Good.createGood();
+                            setGoodDataToArTemp(itemID);
+                            return;
+                        } else if (menuType.matches("seller")) {
+                            sellerId = Person.createPerson();
+                            return;
+                        } else if (menuType.matches("buyer")) {
+                            buyerId = Person.createPerson();
+                            return;
+                        } else {}
 
-                    for(int i = 0;i<arFirstStrLen;i++) {
-                        System.out.print(s[existingItemId][i] + " | ");
-                    }
+            } else if (strIn.matches("^[1-9]\\d*")) {
+                        itemID = Integer.parseInt(strIn);
 
-                    System.out.println(" ");
+                        if (itemID < (Main.getFirstFreeArItem(arToShow))) {
+                            System.out.print("Выбран элемент c ID " + itemID);
+                            Main.showArItem(arToShow, itemID);
+                        } else {
+                            System.out.println("Элемента  с таким ID не существует, повторите ввод");
+                            continue;
+                        }
 
-                    if (sName.matches("tempGood")) {
-                        setGoodDataToArTemp(existingItemId);
-                    } else if (sName.matches("seller")){
-                        sellerId = existingItemId;
-                    } else if (sName.matches("buyer")){
-                        buyerId = existingItemId;
-                    } else {}
-
-            } else if (existingItemId == 0){
-
-                    if (sName.matches("tempGood")) {
-                        existingItemId = Good.createGood();
-                        setGoodDataToArTemp(existingItemId);
-                    } else if (sName.matches("seller")){
-                        sellerId = Person.createPerson();
-                    } else if (sName.matches("buyer")) {
-                        buyerId = Person.createPerson();
-                    } else {}
-
+                        if (menuType.matches("tempGood")) {
+                            setGoodDataToArTemp(itemID);
+                            return;
+                        } else if (menuType.matches("seller")) {
+                            sellerId = itemID;
+                            return;
+                        } else if (menuType.matches("buyer")) {
+                            buyerId = itemID;
+                            return;
+                        } else {}
             } else {
-                System.out.println("Элемента  с таким ID не существует");
-                chouseOneItemEnter(s, sName);
-                return;
+                System.out.println("Такого варианта в меню нет, повторите ввод");
+                continue;
             }
+
+        } while (repitMenu);
 
     }
 
@@ -204,12 +298,10 @@ public class Deal {
             System.out.printf(" На сумму %.2f", Double.parseDouble(arDeals[dealNum][5]));
 
             if (Boolean.parseBoolean(arDeals[dealNum][6])){
-                System.out.println(" состоялась ");
+                System.out.println(" состоялась (deadline date " + arDeals[dealNum][4] + ") ");
             } else {
                 System.out.println(" не состоялась");
             }
-
-            System.out.println();
 
             for (int i = 0; i < Main.getFirstFreeArItem(Person.arPersons) ; i++){
                 if (Person.arPersons[i][0].matches(arDeals[dealNum][2])){
@@ -226,13 +318,15 @@ public class Deal {
             System.out.println("Предмет сделки: " + "\n_______________");
 
             for (int i = 0; i < Main.getFirstFreeArItem(arDealGoods); i++) {
-                    for (int j = 0; j < arDealGoods[0].length; j++) {
-                        if (arDealGoods[i][12].matches(dealNum.toString()) || arDealGoods[i][12].matches("DEAL_ID")) {
-                            System.out.print(arDealGoods [i][j] + " | ");
-                        } else {}
-                    }
+                if (arDealGoods[i][12].matches(dealNum.toString()) || arDealGoods[i][12].matches("DEAL_ID")){
 
-                System.out.println(" ");
+                    for (int j = 0; j < arDealGoods[0].length; j++) {
+                            System.out.print(arDealGoods [i][j] + " | ");
+                        }
+
+                    System.out.print("\n");
+
+                    } else {}
             }
         }
 
