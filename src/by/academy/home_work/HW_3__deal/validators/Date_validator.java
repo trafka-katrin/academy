@@ -1,6 +1,6 @@
-package by.academy.home_work.HW_deal.validators;
+package by.academy.home_work.HW_3__deal.validators;
 
-import by.academy.home_work.HW_deal.Main;
+import by.academy.home_work.HW_3__deal.Main;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;

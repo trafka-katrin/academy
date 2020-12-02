@@ -1,8 +1,8 @@
-package by.academy.home_work.HW_deal;
+package by.academy.home_work.HW_3__deal;
 
-import by.academy.home_work.HW_deal.goods.Good;
-import by.academy.home_work.HW_deal.goods.Sale_in_lots;
-import by.academy.home_work.HW_deal.validators.Date_validator;
+import by.academy.home_work.HW_3__deal.goods.Good;
+import by.academy.home_work.HW_3__deal.goods.Sale_in_lots;
+import by.academy.home_work.HW_3__deal.validators.Date_validator;
 
 import java.time.LocalDateTime;
 import java.time.Period;

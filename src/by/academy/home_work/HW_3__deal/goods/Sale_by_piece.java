@@ -1,4 +1,4 @@
-package by.academy.home_work.HW_deal.goods;
+package by.academy.home_work.HW_3__deal.goods;
 
 
 public class Sale_by_piece extends Good{

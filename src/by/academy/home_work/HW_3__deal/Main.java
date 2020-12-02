@@ -1,7 +1,7 @@
-package by.academy.home_work.HW_deal;
+package by.academy.home_work.HW_3__deal;
 
-import by.academy.home_work.HW_deal.goods.Good;
-import by.academy.home_work.HW_deal.validators.Validator;
+import by.academy.home_work.HW_3__deal.goods.Good;
+import by.academy.home_work.HW_3__deal.validators.Validator;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -172,9 +172,11 @@ public class Main {
 
     public static String[][] chekArLength(String[][] ar){
         String tempAr[][] = new String[ar.length*2+1][ar[0].length];
+        getFirstFreeArItem(tempAr);
         if(getFirstFreeArItem(ar) == -1){
-            tempAr = Arrays.copyOf(ar, ar.length);
+            System.arraycopy(ar, 0, tempAr, 0, ar.length );
             ar = tempAr;
+            System.out.println(ar.length);
         }
         return ar;
     }

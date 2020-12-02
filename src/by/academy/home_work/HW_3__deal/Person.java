@@ -1,7 +1,7 @@
-package by.academy.home_work.HW_deal;
+package by.academy.home_work.HW_3__deal;
 
-import by.academy.home_work.HW_deal.validators.BelarusPhoneValidator;
-import by.academy.home_work.HW_deal.validators.Date_validator;
+import by.academy.home_work.HW_3__deal.validators.BelarusPhoneValidator;
+import by.academy.home_work.HW_3__deal.validators.Date_validator;
 
 public class Person {
 
@@ -9,7 +9,7 @@ public class Person {
                         {"PERSON_ID","PERSON_NAME","PERSON_MONEY","DATE_OF_BIRTH","PHONE","EMAIL"},
                         {"1","Паца-Ваца"," 50","12-12-2000","+375291112233","paca@vaca.com"},
                         {"2","Десантник Степочкин","100","22-11-1990","+375294445566","d.stepochkin@gmail.com"}};
-    static String arPersons [][] = new String[100][arPersonsStub[0].length];
+    static String arPersons [][] = new String[3][arPersonsStub[0].length];
     private Integer personId;
     private String personName;
     private Double personMoney;
@@ -22,13 +22,8 @@ public class Person {
         this.personId = Main.getFirstFreeArItem(arPersons);
     }
 
-    public void setPersonMoney(double personMoney) {
-        this.personMoney = personMoney;
-    }
-
     static void setPersonsDataToAr(Integer personId, String personName, String personMoney, String personDayOfBirth,
                                    String phone, String email){
-
         arPersons[personId][0] = personId.toString();
         arPersons[personId][1] = personName;
         arPersons[personId][2] = personMoney;
@@ -64,6 +59,12 @@ public class Person {
         System.out.println("Введите email");
 
         personX.email = Main.validateEmail();
+
+        arPersons = Main.chekArLength(arPersons);
+        System.out.println(arPersons.length);
+        Integer n = arPersons.length;
+        System.out.println(Main.getFirstFreeArItem(arPersons));
+        Main.showAr(arPersons, Main.getFirstFreeArItem(arPersons).toString());
 
 
         setPersonsDataToAr(Main.getFirstFreeArItem(arPersons), personX.personName,

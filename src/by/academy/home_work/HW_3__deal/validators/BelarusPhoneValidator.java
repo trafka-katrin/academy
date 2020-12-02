@@ -1,4 +1,4 @@
-package by.academy.home_work.HW_deal.validators;
+package by.academy.home_work.HW_3__deal.validators;
 
 public class BelarusPhoneValidator {
     public Boolean validate(String phoneNum){

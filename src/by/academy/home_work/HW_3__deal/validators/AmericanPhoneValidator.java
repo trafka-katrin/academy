@@ -1,4 +1,4 @@
-package by.academy.home_work.HW_deal.validators;
+package by.academy.home_work.HW_3__deal.validators;
 
 public class AmericanPhoneValidator implements Validator{
 

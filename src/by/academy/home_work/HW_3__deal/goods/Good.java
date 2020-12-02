@@ -1,7 +1,7 @@
-package by.academy.home_work.HW_deal.goods;
+package by.academy.home_work.HW_3__deal.goods;
 
-import by.academy.home_work.HW_deal.Deal;
-import by.academy.home_work.HW_deal.Main;
+import by.academy.home_work.HW_3__deal.Deal;
+import by.academy.home_work.HW_3__deal.Main;
 
 public class Good {
     protected static Double discontByGoodsSumm = 5.0;
