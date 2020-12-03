@@ -1,6 +1,7 @@
 package by.academy.home_work.HW_3__deal.validators;
 
 import by.academy.home_work.HW_3__deal.Main;
+import by.academy.home_work.HW_3__deal.builders.Builder;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -15,14 +16,14 @@ public class Date_validator {
     public static String validateDate() {
         boolean b = false;
         String date;
+        Pattern datePattern = Pattern.compile(
+                "^(0(?=[1-9])|1|2|3(?=[01]))\\d" +
+                        "(\\/(?!\\d{2}-)|-(?!\\d{2}\\/))" +
+                        "(0(?=[1-9])|1(?=[012]))\\d[/-]" +
+                        "(1(?=9)|2(?=0))[90][\\d]{2}$");
 
         do {
-            date = Main.scanNextLine();
-            Pattern datePattern = Pattern.compile(
-                                   "^(0(?=[1-9])|1|2|3(?=[01]))\\d" +
-                                    "(\\/(?!\\d{2}-)|-(?!\\d{2}\\/))" +
-                                    "(0(?=[1-9])|1(?=[012]))\\d[/-]" +
-                                    "(1(?=9)|2(?=0))[90][\\d]{2}$");
+            date = Builder.scanNextLine();
             Matcher matcher = datePattern.matcher(date);
             if (matcher.matches()) {
                 b = true;

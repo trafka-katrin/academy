@@ -1,10 +1,12 @@
 package by.academy.home_work.HW_3__deal;
 
-import by.academy.home_work.HW_3__deal.goods.Good;
+import by.academy.home_work.HW_3__deal.builders.Builder;
+import by.academy.home_work.HW_3__deal.builders.Deal_builder;
+import by.academy.home_work.HW_3__deal.builders.Good_builder;
+import by.academy.home_work.HW_3__deal.builders.Person_builder;
 import by.academy.home_work.HW_3__deal.validators.Validator;
-
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -12,18 +14,19 @@ public class Main {
 
         public Boolean validate(String email){
             Boolean chekEmail = false;
-            if(email.matches( "^[-a-z0-9!#$%&'*+/=?^_`{|}~]+" +
-                                    "(\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*" +
-                                    "@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*" +
-                                    "(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|" +
-                                    "name|net|org|pro|tel|travel|[a-z][a-z])$"))
-            {
+            Pattern emailPattern = Pattern.compile(
+                            "^[-a-z0-9!#$%&'*+/=?^_`{|}~]+" +
+                            "(\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*" +
+                            "@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*" +
+                            "(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|" +
+                            "name|net|org|pro|tel|travel|[a-z][a-z])$");
+            Matcher matcherEmail = emailPattern.matcher(email);
+            if(matcherEmail.matches()){
                 chekEmail = true;
-            }
+            } else {}
             return chekEmail;
 
         }
-
 
     }
 
@@ -31,10 +34,10 @@ public class Main {
         String menuItemI;
         String menuItemJ;
 
-        fillInAr(Deal.arDeals,Deal.arDealsStub);
-        fillInAr(Deal.arDealGoods,Deal.arDealGoodsStub);
-        fillInAr(Person.arPersons, Person.arPersonsStub);
-        fillInAr(Good.getArGoods(),Good.getArGoodsStub());
+        Builder.fillInAr(Deal_builder.getArDeals(), Deal_builder.getArDealsStub());
+        Builder.fillInAr(Deal_builder.getArDealGoods(), Deal_builder.getArDealGoodsStub());
+        Builder.fillInAr(Person_builder.getArPersons(), Person_builder.getArPersonsStub());
+        Builder.fillInAr(Good_builder.getArGoods(),Good_builder.getArGoodsStub());
 
         do {
             System.out.println(
@@ -44,10 +47,10 @@ public class Main {
                                 "▶ Для создания новой сделки введите \"1\"    " +
                                 "▶ Для просмотра информации по сделкам введите \"2\"    " +
                                 "▶ Для просмотра данных массивов введите \"3\".");
-            menuItemI = scanNext();
+            menuItemI = Builder.scanNext();
 
             switch (menuItemI){
-                case "1": Deal.createDeal();
+                case "1": Deal_builder.createDeal();
                     break;
 
                 case "2":
@@ -56,14 +59,13 @@ public class Main {
                         System.out.println ("▶ Для просмотра информации о сделке введите ее ID   " +
                                             "▶ Для просмотра всех сделок введите \"0\"   " +
                                             "▶ Для выхода из меню введите другой символ");
-                        memuItem2 = Main.scanNext();
+                        memuItem2 = Builder.scanNext();
                         if (memuItem2.matches("[1-9]\\d*")){
-                            Deal.showDealInfo(Integer.parseInt(memuItem2));
+                            Deal_builder.showDealInfo(Integer.parseInt(memuItem2));
                         } else if (memuItem2.matches("0")){
-                            Main.showAr(Deal.arDeals, "1");
-                            Integer countDeals = Main.getFirstFreeArItem(Deal.arDeals);
+                            Integer countDeals = Builder.getFirstFreeArItem(Deal_builder.getArDeals());
                             for(int i = 1; i < countDeals; i++){
-                                Deal.showDealInfo(i);
+                                Deal_builder.showDealInfo(i);
                             }
                         }else {}
 
@@ -76,19 +78,19 @@ public class Main {
                     do{
                         System.out.println("Выберите массив: " +
                                             "1 - Сделки, 2 - Клиенты, 3 - Товары, 4 - Связи сделок с товарами");
-                        menuItemJ = scanNext();
+                        menuItemJ = Builder.scanNext();
 
                         switch (menuItemJ) {
-                            case "1": showAr(Deal.arDeals, "10");
+                            case "1": Builder.showAr(Deal_builder.getArDeals(), "10");
                                 break;
 
-                            case "2": showAr(Person.arPersons, "10");
+                            case "2": Builder.showAr(Person_builder.getArPersons(), "10");
                                 break;
 
-                            case "3": showAr(Good.getArGoods(), "10");
+                            case "3": Builder.showAr(Good_builder.getArGoods(), "10");
                                 break;
 
-                            case "4": showAr(Deal.arDealGoods, "10");
+                            case "4": Builder.showAr(Deal_builder.getArDeals(), "10");
                                 break;
 
                             default: break;
@@ -109,7 +111,7 @@ public class Main {
         EmailValidator eV = new EmailValidator();
 
         do {
-            email = Main.scanNextLine();
+            email = Builder.scanNextLine();
             isEmailValid = eV.validate(email);
 
             if (!isEmailValid){
@@ -121,102 +123,5 @@ public class Main {
         return email;
     }
 
-    public static void showAr(String arName[][], String strinsBefor){
-
-        for (int i = 0; i< Integer.parseInt(strinsBefor); i++){
-            for (int j = 0; j< arName[i].length; j++){
-                System.out.print(arName [i][j] + " | " );
-            }
-            System.out.println(" ");
-        }
-
-    }
-
-    public static void showArItem(String m[][], Integer itemI){
-
-        for (int i = 0; i< m[0].length; i++){
-
-            System.out.print(m [0][i] + " | " );
-        }
-
-        System.out.println(" ");
-
-        for (int i = 0; i< m[itemI].length; i++){
-
-            System.out.print(m [itemI][i] + " | " );
-        }
-        System.out.println(" ");
-
-    }
-
-    static void fillInAr(String m[][],String n[][]){
-
-        for (int i = 0; i< n.length; i++){
-            for (int j = 0; j < n[i].length; j++){
-                m[i][j] = n[i][j];
-            }
-        }
-
-    }
-
-    public static Integer getFirstFreeArItem(String[][] m){
-        Integer n = -1;
-        for (int i = 0; i< m.length; i++){
-            if (m [i][0]==null){
-                n = i;
-                break;
-            }
-        }
-        return n;
-    }
-
-    public static String[][] chekArLength(String[][] ar){
-        String tempAr[][] = new String[ar.length*2+1][ar[0].length];
-        getFirstFreeArItem(tempAr);
-        if(getFirstFreeArItem(ar) == -1){
-            System.arraycopy(ar, 0, tempAr, 0, ar.length );
-            ar = tempAr;
-            System.out.println(ar.length);
-        }
-        return ar;
-    }
-
-    public static String scanNextLine(){
-        Scanner scan = new Scanner(System.in);
-        String l = scan.nextLine();
-        return l;
-    }
-    public static String scanNext(){
-        Scanner scan = new Scanner(System.in);
-        String s = scan.next();
-        return s;
-    }
-    public static Integer isScanNotNegativeInt(){
-        Integer i = -1;
-
-        do {
-            Scanner scan = new Scanner(System.in);
-
-            if (scan.hasNextInt()) {
-                i = scan.nextInt();
-                if (i < 0) {
-                    System.out.println("Вы ввели отрицательное число, повторите ввод");
-                    i=-1;
-                } else {}
-            } else {
-                System.out.println("Введенные данные не являются целым числом, повторите ввод");
-            }
-
-        }while (i < 0);
-
-        closeScan();
-        return i;
-
-    }
-
-    public static void closeScan(){
-        Scanner scan = new Scanner("");
-        scan.close();
-    }
 
 }

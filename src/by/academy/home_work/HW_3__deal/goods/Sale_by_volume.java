@@ -2,7 +2,7 @@ package by.academy.home_work.HW_3__deal.goods;
 
 public class Sale_by_volume extends Good{
 
-    protected Sale_by_volume (){
+    public Sale_by_volume(){
         super();
         saleType = "by_volume";
         lotSize = "1";
@@ -104,7 +104,7 @@ public class Sale_by_volume extends Good{
 
     }
 
-     protected static Double chekDiscount(Double totalTaraPrice, Integer goodCount, Double goodPrice){
+     public static Double chekDiscount(Double totalTaraPrice, Integer goodCount, Double goodPrice){
         Double discount = 0.0;
         Double goodsPrice = goodCount * goodPrice;
         Double taraPricePerсent = totalTaraPrice / goodsPrice * 100;

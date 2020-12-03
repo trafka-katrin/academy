@@ -3,7 +3,7 @@ package by.academy.home_work.HW_3__deal.goods;
 
 public class Sale_by_piece extends Good{
 
-    protected Sale_by_piece (){
+    public Sale_by_piece(){
         super();
         saleType = "by_piece";
         lotSize = "1";
